@@ -1,0 +1,139 @@
+const musicContainer = document.querySelector('.music-container')
+const playBtn = document.querySelector('#play')
+const prevBtn = document.querySelector('#prev')
+const nextBtn = document.querySelector('#next')
+const audio = document.querySelector('#audio')
+const progress = document.querySelector('.progress')
+const progressContainer = document.querySelector('.progress-container')
+const title = document.querySelector('#title')
+const $ = document.querySelector.bind(document);
+const songs = ['letsroll']
+
+let songIndex = 0
+
+function loadSong(song){
+    audio.src = `https://raw.githubusercontent.com/eaglezer0/musichost/main/${song}.mp3`
+}
+
+loadSong(songs[songIndex])
+
+function pauseSong(){
+    musicContainer.classList.remove('play')
+    playBtn.querySelector('i.fas').classList.add('fa-play')
+    playBtn.querySelector('i.fas').classList.remove('fa-pause')
+
+    audio.pause()
+}
+
+function playSong(){
+    musicContainer.classList.add('play')
+    playBtn.querySelector('i.fas').classList.remove('fa-play')
+    playBtn.querySelector('i.fas').classList.add('fa-pause')
+
+    audio.play()
+}
+
+function updateProgress(e) {
+    const{duration, currentTime} = e.srcElement
+    const progressPercent = (currentTime / duration) * 100
+    progress.style.width = `${progressPercent}%`
+}
+
+playBtn.addEventListener('click', () =>{
+    const isPlaying = musicContainer.classList.contains('play')
+
+    if(isPlaying){
+        pauseSong()
+    }
+    else{
+        playSong()
+    }
+})
+
+audio.addEventListener('timeupdate', updateProgress)
+
+var ojelna = 0
+
+// function bluron(){
+//     $('#albumconvers').style.filter="blur(2px)"
+//     ojelna = 1;
+//     console.log(ojelna);
+// }
+
+// function bluroff(){
+//     $('#albumconvers').style.filter="none"
+//     ojelna = 0;
+//     console.log(ojelna);
+// }
+
+$('#witcheswrap').addEventListener("mouseover",function(){
+    $('#witchescover').style.filter="blur(2px)"
+    ojelna = 1;
+    console.log(ojelna);
+});
+
+$('#witcheswrap').addEventListener("mouseout",function(){
+    $('#witchescover').style.filter="none"
+    ojelna = 0;
+    console.log(ojelna);
+});
+
+$('#violatorwrap').addEventListener("mouseover",function(){
+    $('#violatorcover').style.filter="blur(2px)"
+    ojelna = 1;
+    console.log(ojelna);
+});
+
+$('#violatorwrap').addEventListener("mouseout",function(){
+    $('#violatorcover').style.filter="none"
+    ojelna = 0;
+    console.log(ojelna);
+});
+
+$('#newchurchwrap').addEventListener("mouseover",function(){
+    $('#newchurchcover').style.filter="blur(2px)"
+    ojelna = 1;
+    console.log(ojelna);
+});
+
+$('#newchurchwrap').addEventListener("mouseout",function(){
+    $('#newchurchcover').style.filter="none"
+    ojelna = 0;
+    console.log(ojelna);
+});
+
+$('#infwrap').addEventListener("mouseover",function(){
+    $('#infcover').style.filter="blur(2px)"
+    ojelna = 1;
+    console.log(ojelna);
+});
+
+$('#infwrap').addEventListener("mouseout",function(){
+    $('#infcover').style.filter="none"
+    ojelna = 0;
+    console.log(ojelna);
+});
+
+$('#rendezwrap').addEventListener("mouseover",function(){
+    $('#rendezcover').style.filter="blur(2px)"
+    ojelna = 1;
+    console.log(ojelna);
+});
+
+$('#rendezwrap').addEventListener("mouseout",function(){
+    $('#rendezcover').style.filter="none"
+    ojelna = 0;
+    console.log(ojelna);
+});
+
+$('#shewantswrap').addEventListener("mouseover",function(){
+    $('#shewantscover').style.filter="blur(2px)"
+    ojelna = 1;
+    console.log(ojelna);
+});
+
+$('#shewantswrap').addEventListener("mouseout",function(){
+    $('#shewantscover').style.filter="none"
+    ojelna = 0;
+    console.log(ojelna);
+});
