@@ -833,12 +833,14 @@ export default function ThrauzyPortfolio() {
         .port-card video {
           width: 100%; height: 280px; object-fit: cover;
           border: 1px solid #444; display: block;
+          transform: translateZ(0);
+          will-change: transform;
         }
         @media (max-width: 768px) {
           .port-card video { height: 200px; }
         }
         @media (max-width: 480px) {
-          .port-card video { height: 120px; }
+          .port-card video { height: 160px; }
         }
         .port-card .plabel { font-size: 12px; color: #888; margin-top: 6px; font-style: italic; }
         @media (max-width: 480px) {
