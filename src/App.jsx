@@ -370,19 +370,22 @@ export default function ThrauzyPortfolio() {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      const eyes = document.querySelectorAll('.eyeball');
-      eyes.forEach(eye => {
-        const rect = eye.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-        const rad = Math.atan2(e.pageX - x, e.pageY - y);
-        const rot = (rad * (180 / Math.PI) * -1) + 180;
-        eye.style.transform = `rotate(${rot}deg)`;
-      });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    // Olhos que seguem o mouse - APENAS NO DESKTOP
+    if (window.innerWidth > 768) {
+      const handleMouseMove = (e) => {
+        const eyes = document.querySelectorAll('.eyeball');
+        eyes.forEach(eye => {
+          const rect = eye.getBoundingClientRect();
+          const x = rect.left + rect.width / 2;
+          const y = rect.top + rect.height / 2;
+          const rad = Math.atan2(e.pageX - x, e.pageY - y);
+          const rot = (rad * (180 / Math.PI) * -1) + 180;
+          eye.style.transform = `rotate(${rot}deg)`;
+        });
+      };
+      window.addEventListener('mousemove', handleMouseMove);
+      return () => window.removeEventListener('mousemove', handleMouseMove);
+    }
   }, []);
 
   const calendars = {
@@ -475,13 +478,11 @@ export default function ThrauzyPortfolio() {
           will-change: transform;
         }
 
-        /* MOBILE OPTIMIZATIONS */
         @media (max-width: 768px) {
           body { font-size: 12px; }
           * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         }
 
-        /* --- FLOATING EYES + BATS --- */
         .floaters-layer {
           position: fixed;
           inset: 0;
@@ -537,7 +538,6 @@ export default function ThrauzyPortfolio() {
         a { color: #f33; text-decoration: none; }
         a:hover { color: #fff; text-decoration: underline; }
 
-        /* === HEADER === */
         .header { text-align: center; padding: 30px 20px 15px; display: flex; align-items: center; justify-content: center; gap: 15px; }
         .header-content { display: flex; align-items: center; gap: 15px; }
         .mouth-icon { width: 40px; height: auto; }
@@ -574,7 +574,6 @@ export default function ThrauzyPortfolio() {
           border-radius: 50%; top: 2px; left: 6px;
         }
 
-        /* === MAIN GRID === */
         .main-grid {
           width: 96%; max-width: 1600px; margin: 10px auto 40px;
           display: grid; grid-template-columns: 18% 50% 1fr;
@@ -641,14 +640,12 @@ export default function ThrauzyPortfolio() {
         .red-head a { color: #fff; }
         .red-head a:hover { color: #ffd2d2; text-decoration: none; }
 
-        /* NAV */
         .nav { list-style: none; }
         .nav li { margin-bottom: 8px; }
         .nav a {
           color: #f33; font-size: 14px; text-decoration: none;
         }
 
-        /* MUSIC PLAYER */
         .music-box {
           background: linear-gradient(180deg, #a10b0b, #000);
           border-bottom: 2px solid #fff; border-top: 2px solid #fff;
@@ -674,7 +671,6 @@ export default function ThrauzyPortfolio() {
         .play-btn:hover { background: radial-gradient(circle, #f00 40%, #a10b0b 100%); }
         .play-btn { font-size: 20px; }
 
-        /* PORTFOLIO - BIGGER VIDEOS */
         .port-grid {
           display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px;
         }
@@ -682,7 +678,6 @@ export default function ThrauzyPortfolio() {
         @media (max-width: 600px) { .port-grid { grid-template-columns: 1fr; gap: 8px; padding: 8px; } }
         @media (max-width: 400px) { .port-grid { gap: 4px; padding: 4px; } }
         
-        /* RANDOM VIDEO ON SIDES */
         .side-video {
           border: 1px solid #444; border-radius: 5px; overflow: hidden; margin: 10px 0;
         }
@@ -847,7 +842,6 @@ export default function ThrauzyPortfolio() {
           .port-card .plabel { font-size: 10px; margin-top: 4px; }
         }
 
-        /* STAMPS - proper retro size like the original */
         .stamps-grid {
           display: flex; flex-wrap: wrap; gap: 3px; justify-content: center; padding: 12px;
         }
@@ -862,7 +856,6 @@ export default function ThrauzyPortfolio() {
           .stamps-grid img { height: 16px; }
         }
 
-        /* CALENDAR - inside agendamento */
         .cal-container {
           border: 2px solid #f00; margin: 15px 0; background: #050000;
         }
@@ -894,7 +887,6 @@ export default function ThrauzyPortfolio() {
         .cal-sel { background: #f00 !important; color: #000 !important; font-weight: bold; }
         .cal-busy { color: #f55; background: #300; }
 
-        /* FORM */
         .form-section { border-top: 2px solid #fff; padding: 18px; }
         .form-title { color: #fff; font-weight: bold; margin-bottom: 12px; font-size: 16px; }
         @media (max-width: 768px) {
@@ -933,7 +925,6 @@ export default function ThrauzyPortfolio() {
         }
         .sub-btn:hover { background: #f00; }
 
-        /* RIGHT STAMPS - 3-col grid, no gaps */
         .right-stamps {
           display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; padding: 0;
           grid-auto-rows: 90px;
@@ -1011,7 +1002,6 @@ export default function ThrauzyPortfolio() {
           .top-strip { display: none; }
         }
 
-        /* GLITCH EFFECT */
         .glitch {
           position: relative;
           display: inline-block;
@@ -1080,7 +1070,7 @@ export default function ThrauzyPortfolio() {
 
       <audio ref={audioRef} src="https://raw.githubusercontent.com/eaglezer0/musichost/main/letsroll.mp3" loop />
 
-      {/* HEADER - with mouth icon */}
+      
       <div className="header">
         <div className="header-content">
           <img src={mouthred} alt="mouth" className="mouth-icon" />
@@ -1091,7 +1081,7 @@ export default function ThrauzyPortfolio() {
 
       <div className="main-grid">
 
-        {/* ========= LEFT COLUMN ========= */}
+        
         <div className="left">
           <div className="box">
             <div className="box-head">links</div>
@@ -1131,21 +1121,21 @@ export default function ThrauzyPortfolio() {
             </div>
           </div>
 
-          {/* Feature images from retro gifs - bigger ones */}
+          
           {leftFeatureGifs.slice(0, 6).map((g, i) => (
             <div key={i} className="box mobile-hide" style={{ padding: '0' }}>
               <img src={g} style={{ width: '100%', display: 'block', borderBottom: '2px solid #fff' }} />
             </div>
           ))}
 
-          {/* Left stamps grid */}
+          
           <div className="box mobile-hide">
             <div className="stamps-grid" style={{ gap: '2px' }}>
               {leftStamps.map((g, i) => <img key={i} src={g} alt="" style={{ height: '18px' }} />)}
             </div>
           </div>
 
-          {/* More feature gifs */}
+          
           {leftFeatureGifs.slice(6, 12).map((g, i) => (
             <div key={`f${i}`} className="box mobile-hide" style={{ padding: '0' }}>
               <img src={g} style={{ width: '100%', display: 'block', borderBottom: '2px solid #fff' }} />
@@ -1164,7 +1154,7 @@ export default function ThrauzyPortfolio() {
           </div>
         </div>
 
-        {/* ========= CENTER COLUMN ========= */}
+        
         <div className="center">
           <div className="box">
             <div className="box-head">intro</div>
@@ -1181,48 +1171,48 @@ export default function ThrauzyPortfolio() {
             <div className="box-head">projetos recentes</div>
             <div className="port-grid">
               <div className="port-card">
-                <video src={vid1} autoPlay loop muted playsInline />
+                <video src={vid1} autoPlay loop muted playsInline preload="none" />
                 <div className="plabel">projeto 01</div>
               </div>
               <div className="port-card">
-                <video src={vid2} autoPlay loop muted playsInline />
+                <video src={vid2} autoPlay loop muted playsInline preload="none" />
                 <div className="plabel">projeto 02</div>
               </div>
               <div className="port-card">
-                <video src={vid3} autoPlay loop muted playsInline />
+                <video src={vid3} autoPlay loop muted playsInline preload="none" />
                 <div className="plabel">projeto 03</div>
               </div>
               <div className="port-card">
-                <video src={vid4} autoPlay loop muted playsInline />
+                <video src={vid4} autoPlay loop muted playsInline preload="none" />
                 <div className="plabel">projeto 04</div>
               </div>
               <div className="port-card">
-                <video src={vid5} autoPlay loop muted playsInline />
+                <video src={vid5} autoPlay loop muted playsInline preload="none" />
                 <div className="plabel">projeto 05</div>
               </div>
               <div className="port-card">
-                <video src={vid6} autoPlay loop muted playsInline />
+                <video src={vid6} autoPlay loop muted playsInline preload="none" />
                 <div className="plabel">projeto 06</div>
               </div>
               <div className="port-card">
-                <video src={vid7} autoPlay loop muted playsInline />
+                <video src={vid7} autoPlay loop muted playsInline preload="none" />
                 <div className="plabel">projeto 07</div>
               </div>
               <div className="port-card">
-                <video src={vid8} autoPlay loop muted playsInline />
+                <video src={vid8} autoPlay loop muted playsInline preload="none" />
                 <div className="plabel">projeto 08</div>
               </div>
             </div>
           </div>
 
-          {/* Stamps - like the original site blinkie wall */}
+          
           <div className="box mobile-hide">
             <div className="stamps-grid">
               {centerStamps.map((g, i) => <img key={i} src={g} alt="" />)}
             </div>
           </div>
 
-          {/* ORÇAMENTO - Budget Form */}
+          
           <div className="form-section mobile-priority-box" id="orcamento">
             <div className="form-title">::: orçamento / consulta :::</div>
             {budgetSubmitted ? (
@@ -1277,7 +1267,7 @@ export default function ThrauzyPortfolio() {
             )}
           </div>
 
-          {/* WARNING - Between Budget and Schedule */}
+          
           <div className="mobile-priority-box warning-box" style={{
             background: 'linear-gradient(180deg, #400, #200)',
             border: '2px solid #f00',
@@ -1291,7 +1281,7 @@ export default function ThrauzyPortfolio() {
             ⚠️ NÃO MARQUE A AGENDA SE AINDA NÃO FEZ O ORÇAMENTO ⚠️
           </div>
 
-          {/* AGENDAMENTO - with calendar INSIDE */}
+          
           <div className="form-section mobile-priority-box" id="agendamento">
             <div className="form-title">::: agendamento / consulta :::</div>
             {submitted ? (
@@ -1315,7 +1305,7 @@ export default function ThrauzyPortfolio() {
                   <option>Outro / Freestyle</option>
                 </select>
 
-                {/* CALENDAR INSIDE AGENDAMENTO */}
+                
                 <div className="cal-container">
                   <div className="cal-head">
                     <span>Agendamento_V1.exe</span>
@@ -1362,7 +1352,7 @@ export default function ThrauzyPortfolio() {
           </div>
         </div>
 
-        {/* ========= RIGHT COLUMN ========= */}
+        
         <div className="right">
           <div className="red-head mobile-priority-box">
             encontre-me<br />
@@ -1370,7 +1360,7 @@ export default function ThrauzyPortfolio() {
             <a href="https://wa.me/5561981374388?text=Ol%C3%A1%20thrauzy!" target="_blank" rel="noopener noreferrer">whatsapp</a>
           </div>
 
-          {/* Interactive Pet Game */}
+          
           <div className="box arcade-box mobile-hide" style={{textAlign: 'center', padding: '10px 0'}}>
             <div className="pet-shell">
               <iframe 
@@ -1383,13 +1373,13 @@ export default function ThrauzyPortfolio() {
             </div>
           </div>
 
-          {/* Sinuca local */}
+          
           <div className="box arcade-box mobile-hide" style={{ textAlign: 'center' }}>
             <div className="box-head" style={{ color: '#f00' }}>sinuca online</div>
             <MiniPool />
           </div>
 
-          {/* Pinball */}
+          
           <div className="box arcade-box mobile-hide" style={{ textAlign: 'center' }}>
             <div className="box-head" style={{ color: '#f00' }}>3d pinball xp</div>
             <div className="xp-pinball">
@@ -1423,7 +1413,7 @@ export default function ThrauzyPortfolio() {
             </div>
           </div>
 
-          {/* Right stamps - 3-col grid like the original */}
+          
           <div className="right-stamps mobile-hide">
             {rightStamps.map((g, i) => (
               <img key={i} src={g} alt="" />
@@ -1441,7 +1431,7 @@ export default function ThrauzyPortfolio() {
 
       </div>
 
-      {/* Floating eyes + bats */}
+      
       <div className="floaters-layer" aria-hidden="true">
         {floatingSprites.map((sprite, i) => (
           <div
