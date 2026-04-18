@@ -824,7 +824,7 @@ export default function ThrauzyPortfolio() {
           border-top: 1px solid rgba(255,255,255,0.06);
           pointer-events: none;
         }
-        .port-card { text-align: center; }
+        .port-card { text-align: center; position: relative; }
         .port-card video {
           width: 100%; height: 280px; object-fit: cover;
           border: 1px solid #444; display: block;
@@ -1169,39 +1169,33 @@ export default function ThrauzyPortfolio() {
 
           <div className="box mobile-priority-box" id="portfolio">
             <div className="box-head">projetos recentes</div>
-            <div className="port-grid">
-              <div className="port-card">
-                <video src={vid1} autoPlay loop muted playsInline preload="none" />
-                <div className="plabel">projeto 01</div>
-              </div>
-              <div className="port-card">
-                <video src={vid2} autoPlay loop muted playsInline preload="none" />
-                <div className="plabel">projeto 02</div>
-              </div>
-              <div className="port-card">
-                <video src={vid3} autoPlay loop muted playsInline preload="none" />
-                <div className="plabel">projeto 03</div>
-              </div>
-              <div className="port-card">
-                <video src={vid4} autoPlay loop muted playsInline preload="none" />
-                <div className="plabel">projeto 04</div>
-              </div>
-              <div className="port-card">
-                <video src={vid5} autoPlay loop muted playsInline preload="none" />
-                <div className="plabel">projeto 05</div>
-              </div>
-              <div className="port-card">
-                <video src={vid6} autoPlay loop muted playsInline preload="none" />
-                <div className="plabel">projeto 06</div>
-              </div>
-              <div className="port-card">
-                <video src={vid7} autoPlay loop muted playsInline preload="none" />
-                <div className="plabel">projeto 07</div>
-              </div>
-              <div className="port-card">
-                <video src={vid8} autoPlay loop muted playsInline preload="none" />
-                <div className="plabel">projeto 08</div>
-              </div>
+          <div className="port-grid">
+              {[vid1, vid2, vid3, vid4, vid5, vid6, vid7, vid8].map((video, i) => (
+                <div key={i} className="port-card">
+                  <div onClick={(e) => {
+                    const btn = e.currentTarget.querySelector('.play-btn');
+                    const video = e.currentTarget.querySelector('video');
+                    btn.style.display = 'none';
+                    video.play();
+                    
+                    document.querySelectorAll('.port-card').forEach(card => {
+                      if (card !== e.currentTarget.closest('.port-card')) {
+                        card.querySelector('.play-btn').style.display = 'flex';
+                        card.querySelector('video').pause();
+                      }
+                    });
+                  }} style={{position:'relative', cursor:'pointer'}}>
+                    <div className="play-btn" style={{
+                      position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)',
+                      width:'60px', height:'60px', borderRadius:'50%', background:'rgba(0,0,0,0.7)',
+                      border:'2px solid white', color:'white', display:'flex', alignItems:'center', justifyContent:'center',
+                      fontSize:'22px', zIndex:'10'
+                    }}>▶</div>
+                    <video src={video} loop muted playsInline preload="metadata" />
+                  </div>
+                  <div className="plabel">projeto 0{i+1}</div>
+                </div>
+              ))}
             </div>
           </div>
 
